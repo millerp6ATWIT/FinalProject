@@ -10,10 +10,9 @@ public class Main {
 	}
 
 	public static void runUI(UserInterface UI) {
+		UI.welcomeScreen();
 		while (!UI.killUi) {
-			if (UI.welcomeScreen()) {
-				UI.goToNextScreen();
-			}
+			UI.goToNextScreen();
 		}
 	}
 }

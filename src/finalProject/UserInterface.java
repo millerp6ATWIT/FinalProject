@@ -13,26 +13,23 @@ public class UserInterface {
 	public String nextScreen;
 
 	public boolean killUi = false;
-	
-	public QueueInterface<Transaction> transactions = new Queue<Transaction>();
 
-	public boolean welcomeScreen() {
-		System.out.println(
-				"Welcome to EasyAccounting! Please choose from one of the following and enter it into the console.\n");
-		System.out.println(
-				"Enter New Transaction   Enter New Financial Goal   Manage Financial Goals   Edit User Profile\n");
-		nextScreen = input.nextLine();
-		return true;
+	public List<Transaction> transactions = new List<Transaction>();
+
+	public void welcomeScreen() {
+		System.out.println("Welcome to EasyAccounting! Please choose from one of the following by entering it's abbreviation into the console.\n");
 	}
 
 	public void goToNextScreen() {
-		if (nextScreen.equals("Enter New Transaction")) {
+		System.out.println("Enter New Transaction(ENT)   Enter New Financial Goal(ENFC)   Manage Financial Goals(MFG)   Edit User Profile(EUP)\n");
+		nextScreen = input.nextLine();
+		if (nextScreen.equals("ENT")) {
 			transactionScreen();
-		} else if (nextScreen.equals("Enter New Financial Goal")) {
+		} else if (nextScreen.equals("ENFC")) {
 
-		} else if (nextScreen.equals("Manage Financial Goals")) {
+		} else if (nextScreen.equals("MFG")) {
 
-		} else if (nextScreen.equals("Edit User Profile")) {
+		} else if (nextScreen.equals("EUP")) {
 
 		} else {
 			System.out.println("It appears the option you have chosen is not valid. Please try again.");
@@ -44,6 +41,7 @@ public class UserInterface {
 	public void transactionScreen() {
 		System.out.println("Is the transaction a purchase, withdrawal, or deposit?");
 		String actionType = input.next();
+		input.nextLine();
 		boolean typeDefined = false;
 		double amount;
 		int day;
@@ -60,9 +58,10 @@ public class UserInterface {
 				month = input.nextInt();
 				year = input.nextInt();
 				System.out.println("Enter purchase description if you would like one. If not enter N/A.");
-				description = input.nextLine();
-				transactions.enqueue(new Transaction(new GregorianCalendar(year, month, day), "purchase", -amount, description));
-				typeDefined=true;
+				description = input.next();
+				transactions.add(
+						new Transaction(new GregorianCalendar(year, month, day), "purchase", -amount, description));
+				typeDefined = true;
 				break;
 			case "withdrawal":
 				System.out.println("Enter withdrawal amount");
@@ -72,9 +71,10 @@ public class UserInterface {
 				month = input.nextInt();
 				year = input.nextInt();
 				System.out.println("Enter withdrawal description if you would like one. If not enter N/A.");
-				description = input.nextLine();
-				transactions.enqueue(new Transaction(new GregorianCalendar(year, month, day), "withdrawal", -amount, description));
-				typeDefined=true;
+				description = input.next();
+				transactions.add(
+						new Transaction(new GregorianCalendar(year, month, day), "withdrawal", -amount, description));
+				typeDefined = true;
 				break;
 			case "deposit":
 				System.out.println("Enter deposit amount");
@@ -85,14 +85,32 @@ public class UserInterface {
 				year = input.nextInt();
 				System.out.println("Enter deposit description if you would like one. If not enter N/A.");
 				description = input.nextLine();
-				transactions.enqueue(new Transaction(new GregorianCalendar(year, month, day), "deposit", amount, description));
-				typeDefined=true;
+				transactions
+						.add(new Transaction(new GregorianCalendar(year, month, day), "deposit", amount, description));
+				typeDefined = true;
 				break;
 			default:
 				System.out.println("Bad input, please try again.");
 			}
 		}
-
+		System.out.println("Enter \"Home\" if you would like to return to the Home Screen \nEnter \"New\" if you would like to enter another transaction\nEnter \"Exit\" if you would like to exit the program");
+		String nxt = input.next();
+		boolean val = false;
+		while (!val) {
+			if (nxt.equals("Home")) {
+				System.out.println("\n\n");
+				val=true;
+			} else if (nxt.equals("New")) {
+				System.out.println("\n\n");
+				transactionScreen();
+				val=true;
+			} else if (nxt.equals("Exit")) {
+				System.out.println("\n\n");
+				killUi = true;
+			} else {
+				System.out.println("Bad input, please try again.");
+			}
+		}
 	}
 
 }

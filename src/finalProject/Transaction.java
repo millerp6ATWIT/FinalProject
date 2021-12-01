@@ -51,4 +51,11 @@ public class Transaction {
 		return description;
 	}
 
+	public boolean equals(Transaction T) {
+		return (T.amount==this.amount);
+	}
+	
+	public boolean compareTo(Transaction T) {
+		return (T.amount<this.amount);
+	}
 }

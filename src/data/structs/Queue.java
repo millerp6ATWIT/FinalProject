@@ -37,6 +37,11 @@ public class Queue<T> implements QueueInterface<T> {
 			return removedNode.data;
 		}
 	}
+	
+	@Override
+	public int size() {
+		return numberOfEntries;
+	}
 
 	@Override
 	public T getFront() {
