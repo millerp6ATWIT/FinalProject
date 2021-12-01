@@ -1,8 +1,8 @@
 package finalProject;
 
-import java.util.Date;
+import java.util.GregorianCalendar;
 
-public abstract class Transaction {
+public class Transaction {
 
 	protected String type;
 	
@@ -10,9 +10,9 @@ public abstract class Transaction {
 	
 	protected double amount;
 	
-	protected Date date;
+	protected GregorianCalendar date;
 
-	protected Transaction(Date date, String type, double amount, String description) {
+	protected Transaction(GregorianCalendar date, String type, double amount, String description) {
 		this.type = type;
 		this.date = date;
 		this.amount = amount;
@@ -23,7 +23,7 @@ public abstract class Transaction {
 		this.amount = amount;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(GregorianCalendar date) {
 		this.date = date;
 	}
 
@@ -39,7 +39,7 @@ public abstract class Transaction {
 		return amount;
 	}
 
-	public Date getDate() {
+	public GregorianCalendar getDate() {
 		return date;
 	}
 
